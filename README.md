@@ -21,7 +21,7 @@ This repository includes course material for the **Docker Introduction** course.
 ### **Exercises:**
 1. **Exercise 1:** [Install Docker on your local machine.](Session1_Excercise1.md) 
 2. **Exercise 2:** [Run the "Hello World" Docker container.](Session1_Excercise2.md)  
-3. **Exercise 3:** [Quiz on basic Docker concepts.](Session1_Excercise3.md)  
+3. **Exercise 3:** [Exploring Docker commands](Session1_Excercise3.md)  
 
 ---
 
