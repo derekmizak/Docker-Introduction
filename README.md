@@ -72,10 +72,10 @@ Tagging images
 
 ### Exercises:
 
-1. **Exercise 1:** Write a Dockerfile for a simple Node.js application.
-2. **Exercise 2:** Build and run your custom Docker image.
-3. **Exercise 3:** Tag your image appropriately.
-4. **Exercise 4:** Compre and analyze docker images on Docker Hub.
+1. **Exercise 1:** [Write a Dockerfile for a simple Node.js application.](./Session%203/Session3_Excercise1.md)
+2. **Exercise 2:** [Build and run your custom Docker image.](./Session%203/Session3_Excercise2.md)
+3. **Exercise 3:** [Tag your image appropriately.](./Session%203/Session3_Excercise3.md)
+4. **Exercise 4:** [Compre and analyze docker images on Docker Hub.](./Session%203/Session3_Excercise4.md)
 
 
 ## Session 4: Dockerfile Best Practices and Optimization
@@ -93,6 +93,6 @@ Multi-stage builds
 
 ### Exercises:
 
-1. **Exercise 1:** Optimize your Dockerfile to reduce image size.
-2. **Exercise 2:** Implement multi-stage builds in your Dockerfile.
-3. **Exercise 3:** Compare and analyze image sizes before and after optimization.
+1. **Exercise 1:** [Optimize your Dockerfile to reduce image size.](./Session%204/Session4_Excercise1.md)
+2. **Exercise 2:** [Implement multi-stage builds in your Dockerfile.](./Session%204/Session4_Excercise2.md)
+3. **Exercise 3:** [Compare and analyze image sizes before and after optimization.](./Session%204/Session4_Excercise3.md)
