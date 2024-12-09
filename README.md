@@ -75,6 +75,7 @@ Tagging images
 1. **Exercise 1:** Write a Dockerfile for a simple Node.js application.
 2. **Exercise 2:** Build and run your custom Docker image.
 3. **Exercise 3:** Tag your image appropriately.
+4. **Exercise 4:** Compre and analyze docker images on Docker Hub.
 
 
 ## Session 4: Dockerfile Best Practices and Optimization
