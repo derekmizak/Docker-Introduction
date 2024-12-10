@@ -13,10 +13,12 @@
 This exercise challenges you to critically evaluate a Dockerfile and apply your knowledge of optimization techniques to improve it.
 
 Content for this excercise is provided in the [./app](./app/) directory. The directory contains the following files:
+```
 ./app
     ├── app.py
     ├── Dockerfile.inefficient
     ├── requirements.txt
+```
 
 The `app.py` file is a simple Python application that start a number guessing game. The `requirements.txt` file lists the dependencies for the application.
 
