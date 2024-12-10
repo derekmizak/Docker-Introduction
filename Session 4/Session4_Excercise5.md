@@ -32,34 +32,44 @@ The `app.py` file is a simple Python application that start a number guessing ga
     ```dockerfile
     FROM ubuntu
 
-#### Update package lists
-RUN apt-get update
+    # Update package lists
+    RUN apt-get update
 
-#### Install Python and necessary tools
-RUN apt-get update
-RUN apt-get install -y python3
-RUN apt-get install -y python3-pip
-RUN apt-get install -y python3-venv
+    # Install Python and necessary tools
+    RUN apt-get update
+    RUN apt-get install -y python3
+    RUN apt-get install -y python3-pip
+    RUN apt-get install -y python3-venv
 
-#### Create the application directory
-RUN mkdir -p /app
+    # Create the application directory
+    
+    RUN mkdir -p /app
+    
 
-#### Copy application files (separate layers for inefficiency)
-COPY ./app.py /app
-COPY ./requirements.txt /app
+    # Copy application files (separate layers for inefficiency)
+    
+    COPY ./app.py /app
+    COPY ./requirements.txt /app
 
-#### Set the working directory
-WORKDIR /app
+    # Set the working directory
+  
+    WORKDIR /app
+    
 
-#### Create a virtual environment
-RUN python3 -m venv /app/venv
+    # Create a virtual environment
+   
+    RUN python3 -m venv /app/venv
+ 
 
-#### Install dependencies in the virtual environment
-RUN /app/venv/bin/pip install --no-cache-dir -r requirements.txt
+    # Install dependencies in the virtual environment
+    
+    RUN /app/venv/bin/pip install --no-cache-dir -r requirements.txt
+    
 
-####ß Set the default command to use the virtual environment's Python
-CMD ["/app/venv/bin/python", "app.py"]
-
+    # Set the default command to use the virtual environment's Python interpreter
+    
+    CMD ["/app/venv/bin/python", "app.py"]
+    
     ```
 
 ### 2. Identify Areas for Improvement
@@ -69,12 +79,14 @@ CMD ["/app/venv/bin/python", "app.py"]
 
 ### 3. Rewrite the Dockerfile
 
-*   Create a new Dockerfile named `Dockerfile.optimized` with the following improvements:
+*   Create a new Dockerfile named `Dockerfile.optimized` with the following improvements NOTE: The optimized dockerfile s provided for your reference - try not to look at it until you have tried to optimize the dockerfile yourself.
 
-    *   Use a smaller base image e.g. `python:3.10-slim`.
-    *   Combine multiple `RUN` commands to reduce layers.
-    *   Use a `.dockerignore` file to exclude unnecessary files.
-    *   (Optional) Implement multi-stage builds if applicable.
+Ideas for improvement:
+
+*   Use a smaller base image e.g. `python:3.10-slim`.
+*   Combine multiple `RUN` commands to reduce layers.
+*   Use a `.dockerignore` file to exclude unnecessary files.
+*   (Optional) Implement multi-stage builds if applicable.
 
 
 ### 4. Build and Compare Images
