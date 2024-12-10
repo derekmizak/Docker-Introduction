@@ -47,7 +47,7 @@
    FROM alpine:latest
 
    # Install required dependencies
-   RUN apk add --no-cache curl bash
+   RUN apk add --no-cache curl bash libc6-compat
 
    # Install Node.js v22.11.0 LTS
    RUN curl -fsSL https://nodejs.org/dist/v22.11.0/node-v22.11.0-linux-x64.tar.xz | tar -xJ -C /usr/local --strip-components=1
@@ -94,24 +94,18 @@ After succesful test stop the container.
    ```Dockerfile
    FROM alpine:latest
 
-   # Install required dependencies
-   RUN apk add --no-cache curl bash && \
-       curl -fsSL https://nodejs.org/dist/v22.11.0/node-v22.11.0-linux-x64.tar.xz | tar -xJ -C /usr/local --strip-components=1 && \
-       rm -rf /var/cache/apk/*
-
-
-   # Ensure Node.js binaries are in PATH
-   ENV PATH="/usr/local/bin:$PATH"
-   
-   # Verify Node.js installation
-   RUN node -v && npm -v
+   # Install Node.js and npm, and clean up cache in a single step
+   RUN apk add --no-cache curl bash nodejs npm && \
+      rm -rf /var/cache/apk/* && npm -v && node -v
 
    # Set the working directory
    WORKDIR /app
 
-   # Copy files and install dependencies
+
+   # Copy application files and install dependencies
    COPY package.json ./
-   RUN npm install && rm -rf /var/cache/apk/*
+   RUN npm install && \
+      rm -rf /var/cache/apk/* ~/.npm
 
    # Copy source code
    COPY . .
@@ -121,6 +115,8 @@ After succesful test stop the container.
 
    # Default command
    CMD ["npm", "start"]
+
+
    ```
 
 2. Rebuild the image and compare sizes:
