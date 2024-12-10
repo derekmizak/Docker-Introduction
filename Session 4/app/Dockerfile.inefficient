@@ -1,0 +1,29 @@
+FROM ubuntu
+
+# Update package lists
+RUN apt-get update
+
+# Install Python and necessary tools
+RUN apt-get update
+RUN apt-get install -y python3
+RUN apt-get install -y python3-pip
+RUN apt-get install -y python3-venv
+
+# Create the application directory
+RUN mkdir -p /app
+
+# Copy application files (separate layers for inefficiency)
+COPY ./app.py /app
+COPY ./requirements.txt /app
+
+# Set the working directory
+WORKDIR /app
+
+# Create a virtual environment
+RUN python3 -m venv /app/venv
+
+# Install dependencies in the virtual environment
+RUN /app/venv/bin/pip install --no-cache-dir -r requirements.txt
+
+# Set the default command to use the virtual environment's Python
+CMD ["/app/venv/bin/python", "app.py"]
