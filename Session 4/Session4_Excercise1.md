@@ -96,6 +96,10 @@ After succesful test stop the container.
        curl -fsSL https://nodejs.org/dist/v22.11.0/node-v22.11.0-linux-x64.tar.xz | tar -xJ -C /usr/local --strip-components=1 && \
        rm -rf /var/cache/apk/*
 
+
+   # Ensure Node.js binaries are in PATH
+   ENV PATH="/usr/local/bin:$PATH"
+   
    # Verify Node.js installation
    RUN node -v && npm -v
 
