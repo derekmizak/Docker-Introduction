@@ -3,12 +3,12 @@
 
 **Filename:** `Session4_Exercise5.md`
 
-## Objective
+### Objective
 
 * Analyze an inefficient Dockerfile and identify areas for improvement.
 * Apply Dockerfile best practices to optimize for size and build time.
 
-## Description
+### Description
 
 This exercise challenges you to critically evaluate a Dockerfile and apply your knowledge of optimization techniques to improve it.
 
@@ -23,41 +23,41 @@ Content for this excercise is provided in the [./app](./app/) directory. The dir
 
 The `app.py` file is a simple Python application that start a number guessing game. The `requirements.txt` file lists the dependencies for the application.
 
-## Steps
+### Steps
 
-### 1. Analyze the Inefficient Dockerfile
+#### 1. Analyze the Inefficient Dockerfile
 
 *   **`Dockerfile.inefficient`:**
 
     ```dockerfile
     FROM ubuntu
 
-# Update package lists
+#### Update package lists
 RUN apt-get update
 
-# Install Python and necessary tools
+#### Install Python and necessary tools
 RUN apt-get update
 RUN apt-get install -y python3
 RUN apt-get install -y python3-pip
 RUN apt-get install -y python3-venv
 
-# Create the application directory
+#### Create the application directory
 RUN mkdir -p /app
 
-# Copy application files (separate layers for inefficiency)
+#### Copy application files (separate layers for inefficiency)
 COPY ./app.py /app
 COPY ./requirements.txt /app
 
-# Set the working directory
+#### Set the working directory
 WORKDIR /app
 
-# Create a virtual environment
+#### Create a virtual environment
 RUN python3 -m venv /app/venv
 
-# Install dependencies in the virtual environment
+#### Install dependencies in the virtual environment
 RUN /app/venv/bin/pip install --no-cache-dir -r requirements.txt
 
-# Set the default command to use the virtual environment's Python
+####ß Set the default command to use the virtual environment's Python
 CMD ["/app/venv/bin/python", "app.py"]
 
     ```
