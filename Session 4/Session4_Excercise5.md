@@ -17,6 +17,7 @@ Content for this excercise is provided in the [./app](./app/) directory. The dir
 ./app
     ├── app.py
     ├── Dockerfile.inefficient
+    ├── Dockerfile.optimized
     ├── requirements.txt
 ```
 
