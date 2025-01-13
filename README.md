@@ -88,7 +88,7 @@ This course is designed to provide hands-on experience with Docker. Make sure to
 1. **Exercise 1:** [Install a Specific Node.js Version on Alpin](./Session%204/Session4_Exercise1.md)
 2. **Exercise 2:** [Multi-Stage Builds with Consistent Base and Custom Image](./Session%204/Session4_Exercise2.md)
 3. **Exercise 3:** [Comparing Python Images with and Without Multi-Stage Builds](./Session%204/Session4_Exercise3.md)
-4. **Exercise 4:** [Using ENTRYPOINT Comman](./Session%203/Session4_Exercise4.md)
+4. **Exercise 4:** [Using ENTRYPOINT Command](./Session%203/Session4_Exercise4.md)
 5. **Exercise 5:** [Optimize your Dockerfile to reduce image size.](./Session%203/Session4_Exercise5.md)
 
 ---
