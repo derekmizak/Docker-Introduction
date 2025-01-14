@@ -134,10 +134,10 @@ This course is designed to provide hands-on experience with Docker. Make sure to
 
 ### **Exercises:***
 
-Exercise 1: [Create a custom bridge network.](./Session%206/Session6_Exercise1.md)
+Exercise 1: [Create a custom bridge network.](./Session6/Session6_Exercise1.md)
 
-Exercise 2: [Connect multiple containers on the same network.](./Session%206/Session6_Exercise2.md)
+Exercise 2: [Connect multiple containers on the same network.](./Session6/Session6_Exercise2.md)
 
-Exercise 3: [Map host ports to container ports and test connectivity.](./Session%206/Session6_Exercise3.md)
+Exercise 3: [Map host ports to container ports and test connectivity.](./Session6/Session6_Exercise3.md)
 
-Exercise 4: [Testing inter container communication acrose the networks](./Session%206/Session6_Exercise4.md)
+Exercise 4: [Testing inter container communication acrose the networks](./Session6/Session6_Exercise4.md)

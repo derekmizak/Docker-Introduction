@@ -95,7 +95,7 @@ After succesful test stop the container.
    FROM alpine:latest
 
    # Install Node.js and npm, and clean up cache in a single step
-   RUN apk add --no-cache curl bash nodejs npm && \
+   RUN apk add --no-cache curl bash nodejs npm libc6-compat && \
       rm -rf /var/cache/apk/* && npm -v && node -v
 
    # Set the working directory
