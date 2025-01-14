@@ -109,3 +109,35 @@ This course is designed to provide hands-on experience with Docker. Make sure to
 1. **Exercise 1:** [Create a container with a bind mount to your local filesystem.](./Session%205/Session5_Exercise1.md)
 2. **Exercise 2:** [Modify data in the volume and observe changes.](./Session%205/Session5_Exercise2.md)
 3. **Exercise 3:** [Share a named volume between two containers and test data consistency.](./Session%205/Session5_Exercise3.md)
+
+## **Session 6: Networking and Port Management**
+### **6.1 Docker Networking Basics**
+
+- Docker netowrking theory - CNM, Libnetwork, and drivers
+- Container communication
+
+### **6.2 Network Drivers**
+
+- Bridge, host, and overlay networks
+
+### **6.3 Managing Ports**
+
+- Exposing and publishing container ports
+
+- Port mapping with -p and -P options
+
+### **6.4 Custom Networks**
+
+- Creating user-defined networks
+
+- Linking containers
+
+### **Exercises:***
+
+Exercise 1: [Create a custom bridge network.](./Session%206/Session6_Exercise1.md)
+
+Exercise 2: [Connect multiple containers on the same network.](./Session%206/Session6_Exercise2.md)
+
+Exercise 3: [Map host ports to container ports and test connectivity.](./Session%206/Session6_Exercise3.md)
+
+Exercise 4: [Testing inter container communication acrose the networks](./Session%206/Session6_Exercise4.md)
