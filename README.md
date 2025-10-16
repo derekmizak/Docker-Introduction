@@ -113,7 +113,7 @@ This course is designed to provide hands-on experience with Docker. Make sure to
 ## **Session 6: Networking and Port Management**
 ### **6.1 Docker Networking Basics**
 
-- Docker netowrking theory - CNM, Libnetwork, and drivers
+- Docker networking theory - CNM, Libnetwork, and drivers
 - Container communication
 
 ### **6.2 Network Drivers**
@@ -132,7 +132,7 @@ This course is designed to provide hands-on experience with Docker. Make sure to
 
 - Linking containers
 
-### **Exercises:***
+### **Exercises:**
 
 Exercise 1: [Create a custom bridge network.](./Session6/Session6_Exercise1.md)
 
@@ -140,4 +140,4 @@ Exercise 2: [Connect multiple containers on the same network.](./Session6/Sessio
 
 Exercise 3: [Map host ports to container ports and test connectivity.](./Session6/Session6_Exercise3.md)
 
-Exercise 4: [Testing inter container communication acrose the networks](./Session6/Session6_Exercise4.md)
+Exercise 4: [Testing inter container communication across the networks](./Session6/Session6_Exercise4.md)

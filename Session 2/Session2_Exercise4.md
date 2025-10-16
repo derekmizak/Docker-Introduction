@@ -3,8 +3,11 @@
 
 # Exercise 4: Creating Custom Images
 
-**Objective:**  
+**Objective:**
 Create a custom Docker image from a modified container using `docker commit`.
+
+> **⚠️ IMPORTANT - Learning Exercise Only:**
+> This exercise uses `docker commit` for **educational purposes** to understand how Docker images work. In real-world production environments, you should **always use Dockerfiles** instead. The `docker commit` command is only acceptable for quick debugging or temporary experiments. You'll learn the proper Dockerfile approach in Session 3.
 
 ---
 
@@ -116,10 +119,22 @@ docker run -d -p 8081:80 --name mynginx myubuntu:nginx nginx -g "daemon off;"
 
 ## **Notes**
 
-- **`docker commit`:** Creates a new image from a container's changes.
-- **Best Practices:**
-  - While `docker commit` is useful, it's better to use a `Dockerfile` for reproducibility.
-  - Using `Dockerfile` allows you to version control your image build instructions.
+- **`docker commit` - Learning Tool Only:**
+  - Creates a new image from a container's changes.
+  - **⚠️ NOT recommended for production use** - this approach is considered an anti-pattern in modern Docker workflows (2025).
+
+- **Why Dockerfiles Are Better (You'll Learn This in Session 3):**
+  - **Reproducibility:** Dockerfiles provide a clear, repeatable set of instructions to build images.
+  - **Version Control:** You can track changes to your image build process in Git.
+  - **Documentation:** The Dockerfile itself documents how the image was created.
+  - **Automation:** Dockerfiles integrate seamlessly with CI/CD pipelines.
+  - **Transparency:** Anyone can see exactly what's in the image by reading the Dockerfile.
+
+- **When `docker commit` IS Acceptable:**
+  - **Debugging:** Capturing the state of a container for troubleshooting.
+  - **Quick Experiments:** Testing ideas during development before writing a proper Dockerfile.
+  - **Temporary Snapshots:** Creating temporary backups during active development.
+
 - **Running Nginx in the Foreground:**
   - The `-g "daemon off;"` argument is necessary to prevent Nginx from running as a daemon, which would cause the container to exit.
 

@@ -103,11 +103,43 @@ docker rm stress limited_stress
 ## **Notes**
 
 - **Resource Limitation Flags:**
-  - `--cpus`: Limits CPU usage.
-  - `--memory`: Sets the maximum memory available to the container.
+  - `--cpus`: Limits CPU usage (accepts decimal values like 0.5, 1.5, 2.0).
+  - `--memory` (or `-m`): Sets the maximum memory available to the container (e.g., 256m, 1g, 2g).
+  - `--memory-reservation`: Sets a soft limit that activates when Docker detects memory contention.
+  - `--cpu-shares`: Controls the relative share of CPU cycles (default: 1024).
+
 - **Importance of Resource Management:**
   - Prevents a container from consuming excessive resources.
   - Ensures system stability, especially in multi-container environments.
+  - Critical for production deployments to maintain predictable performance.
+
+- **Docker Compose Resource Limits (Modern Approach):**
+  In Docker Compose v3, you can define resource limits using the `deploy` section:
+
+  ```yaml
+  version: '3.8'
+  services:
+    stress-test:
+      build: .
+      deploy:
+        resources:
+          limits:
+            cpus: '0.50'
+            memory: 512M
+          reservations:
+            cpus: '0.25'
+            memory: 128M
+  ```
+
+  - **limits**: Hard limits that the container cannot exceed.
+  - **reservations**: Guaranteed minimum resources for the container.
+
+- **Best Practices (2025):**
+  - **Start Conservative:** Begin with conservative limits and adjust based on monitoring.
+  - **Test in Staging:** Always test resource limits in a staging environment before production.
+  - **Monitor Continuously:** Use `docker stats` to track actual resource usage over time.
+  - **Avoid Over-Allocation:** Setting limits too high defeats the purpose of resource management.
+  - **Document Limits:** Keep a record of why specific limits were chosen for each service.
 
 ---
 
