@@ -47,8 +47,8 @@ DB_HOST=db
 
 ---
 
-## 📌 Step 3: Final `docker-compose.yml`
-This version binds volumes, adds restart policies, and properly configures environment variables.
+## 📌 Step 3: Production-Ready `docker-compose.yml` (2025 Best Practices)
+This version implements 2025 best practices: proper healthchecks, conditional dependencies, resource limits, and logging configuration.
 
 ```yaml
 services:
@@ -58,19 +58,40 @@ services:
     working_dir: /app
     volumes:
       - ./app:/app  # ✅ Sync application source code
+      - /app/node_modules  # ✅ Anonymous volume for node_modules
     ports:
       - "3000:3000"
-    command: ["sh", "-c", "sleep 5 && npm start"]  # ✅ Delay startup to ensure DB readiness
     env_file:
       - .env
     depends_on:
-      - db
-    restart: always  # ✅ Restart if the container crashes
+      db:
+        condition: service_healthy  # ✅ Wait for DB to be healthy, not just started
+        restart: true
+    restart: unless-stopped  # ✅ Restart automatically unless manually stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (r) => process.exit(r.statusCode === 200 ? 0 : 1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s  # ✅ Give app time to start before checking health
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   db:
-    image: postgres:latest
+    image: postgres:16-alpine  # ✅ Use specific version and alpine for smaller size
     container_name: postgres-db
-    restart: always
+    restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data  # ✅ Persistent data storage
       - ./postgres-init:/docker-entrypoint-initdb.d
@@ -79,14 +100,39 @@ services:
     env_file:
       - .env
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   postgres-data:  # ✅ Persistent PostgreSQL data
 ```
+
+### **2025 Updates Explained:**
+
+1. **No `version:` field** - Docker Compose v2 automatically detects the format
+2. **Conditional `depends_on`** - Waits for database to be healthy, not just started
+3. **Production restart policy** - `unless-stopped` is better than `always` for production
+4. **Resource limits** - Prevents containers from consuming all system resources
+5. **Logging configuration** - Prevents logs from filling up disk space
+6. **Health check with start_period** - Gives containers time to start before health checks count as failures
+7. **Specific image tags** - `postgres:16-alpine` instead of `postgres:latest` for reproducibility
+8. **Better node healthcheck** - Uses Node.js directly instead of requiring curl in the container
 
 ---
 

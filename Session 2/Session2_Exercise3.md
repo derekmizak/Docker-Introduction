@@ -113,11 +113,10 @@ docker rm stress limited_stress
   - Ensures system stability, especially in multi-container environments.
   - Critical for production deployments to maintain predictable performance.
 
-- **Docker Compose Resource Limits (Modern Approach):**
-  In Docker Compose v3, you can define resource limits using the `deploy` section:
+- **Docker Compose Resource Limits (Modern Approach - 2025):**
+  In Docker Compose v2+, you can define resource limits using the `deploy` section:
 
   ```yaml
-  version: '3.8'
   services:
     stress-test:
       build: .

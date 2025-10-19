@@ -15,8 +15,6 @@
 
 2. **Create the `docker-compose.yml` file**:
    ```yaml
-   version: "3.8"
-
    services:
      web:
        build: ./app
@@ -111,4 +109,9 @@
 ### **Insights**
 - `depends_on` ensures that the database container starts before the web server.
 - The `.env` file is used to store **database credentials** securely.
+
+### **Important Notes (2025 Update)**
+- **No `version:` field:** Docker Compose v2 (current standard) no longer requires or recommends the `version:` field in docker-compose.yml files. The file format is automatically detected.
+- **Use `docker compose`:** The modern command is `docker compose` (space, not hyphen). The older `docker-compose` command still works but is deprecated.
+- **Healthcheck missing:** This basic example lacks healthchecks. In production, you should add healthchecks to ensure services are truly ready before dependent services start.
 

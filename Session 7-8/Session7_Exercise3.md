@@ -17,8 +17,6 @@
 
 2. **Define the `docker-compose.yml`**:
    ```yaml
-   version: "3.8"
-
    services:
      web:
        build: ./app

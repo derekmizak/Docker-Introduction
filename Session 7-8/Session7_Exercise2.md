@@ -17,8 +17,6 @@
 
 2. **Define the base `docker-compose.yml`**:
    ```yaml
-   version: "3.8"
-
    services:
      web:
        build: ./app
@@ -39,8 +37,6 @@
 
 4. **Define the override file `docker-compose.override.yml` for production**:
    ```yaml
-   version: "3.8"
-
    services:
      web:
        environment:
