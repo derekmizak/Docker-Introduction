@@ -31,9 +31,33 @@ Use this checklist when writing or reviewing Dockerfiles to ensure you're follow
   ```
 
 - [ ] **Choose minimal base images**
-  - Alpine Linux for small footprint
-  - Distroless for production (Google's gcr.io/distroless)
-  - Scratch for compiled languages (Go, Rust)
+
+  **Base Image Selection Guide (2025):**
+
+  | Image Type | Size | CVEs | Use Case |
+  |------------|------|------|----------|
+  | **FROM scratch** | 0 MB | 0 | Go/Rust static binaries ⭐⭐⭐ |
+  | **Chainguard distroless** (cgr.dev) | 2 MB | 0-5 | Maximum security ⭐⭐⭐ |
+  | **Google distroless** (gcr.io) | 2-150 MB | 5-15 | Production apps ⭐⭐ |
+  | **Alpine Linux** | 5-50 MB | 10-30 | Development, need tools ⭐ |
+  | **Red Hat UBI Micro** | 30 MB | 10-20 | Enterprise/RHEL shops ⭐⭐ |
+  | **Chiseled Ubuntu** | Varies | 5-10 | Ubuntu ecosystem, .NET ⭐⭐ |
+  | **Debian/Ubuntu** | 100+ MB | 50-150 | Development only ❌ |
+
+  **Distroless Providers:**
+  - **Google:** `gcr.io/distroless/*` (original, most docs)
+  - **Chainguard:** `cgr.dev/chainguard/*` (fewest CVEs)
+  - **Red Hat:** `registry.access.redhat.com/ubi9/ubi-micro` (enterprise)
+  - **Canonical:** Chiseled Ubuntu (Ubuntu-based)
+
+  **When to use what:**
+  - **Production:** Chainguard or Google distroless
+  - **Development:** Alpine or full images
+  - **Go/Rust:** FROM scratch or distroless/static
+  - **Enterprise:** Red Hat UBI Micro
+  - **.NET:** Microsoft's chiseled Ubuntu
+
+  **📖 See:** [Distroless Images Complete Guide](./Distroless-Images-Guide.md)
 
 - [ ] **Scan base image for vulnerabilities**
   ```bash

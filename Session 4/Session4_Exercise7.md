@@ -439,12 +439,198 @@ Fill in the `?` marks using `docker scout cves <image>`.
 
 ---
 
+## Alternative Distroless Providers (2025 Update)
+
+**Important:** Distroless images are NOT exclusive to Google! Multiple providers offer distroless images:
+
+### **1. Chainguard Images (cgr.dev) - Recommended Alternative**
+
+Chainguard offers distroless images with typically **fewer CVEs** and easier customization:
+
+**Example: Node.js with Chainguard:**
+```dockerfile
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+
+# Chainguard distroless (alternative to gcr.io)
+FROM cgr.dev/chainguard/node:latest
+COPY --from=builder /app /app
+WORKDIR /app
+CMD ["server.js"]
+```
+
+**Chainguard Benefits:**
+- ✅ Often **0-3 CVEs** (vs 5-15 for Google distroless)
+- ✅ Easier to extend (built with apko)
+- ✅ Signed SBOMs for supply chain security
+- ✅ Available images: `static`, `glibc-dynamic`, `node`, `python`, `go`, `jre`
+
+**Registry:** `cgr.dev/chainguard/*`
+
+---
+
+### **2. Red Hat UBI Micro - Enterprise Option**
+
+For organizations requiring Red Hat support:
+
+**Example:**
+```dockerfile
+FROM registry.access.redhat.com/ubi9/nodejs-18:latest AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+
+FROM registry.access.redhat.com/ubi9/ubi-micro:latest
+COPY --from=builder /app /app
+WORKDIR /app
+CMD ["node", "server.js"]
+```
+
+**UBI Micro Benefits:**
+- ✅ RHEL-based (preferred in enterprise)
+- ✅ Enterprise support from Red Hat
+- ✅ Compliance certifications
+
+**Note:** Larger than Google/Chainguard distroless (~30MB vs 2MB)
+
+---
+
+### **3. Chiseled Ubuntu - Canonical's Distroless**
+
+Ubuntu-based distroless images, **adopted by Microsoft** for .NET:
+
+**Example (.NET):**
+```dockerfile
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+COPY . .
+RUN dotnet publish -c Release -o out
+
+# Microsoft's chiseled Ubuntu distroless
+FROM mcr.microsoft.com/dotnet/runtime:8.0-jammy-chiseled
+COPY --from=build /app/out .
+ENTRYPOINT ["dotnet", "MyApp.dll"]
+```
+
+**Chiseled Benefits:**
+- ✅ Ubuntu-based (familiar to many teams)
+- ✅ 6x smaller attack surface than standard Ubuntu
+- ✅ Official choice for Microsoft .NET
+
+---
+
+### **Provider Comparison Table:**
+
+| Provider | Registry | Base Size | CVEs (avg) | Best For |
+|----------|----------|-----------|------------|----------|
+| **Google** | gcr.io | 2.45 MB | 5-15 | General use, most docs |
+| **Chainguard** | cgr.dev | 2.0 MB | 0-5 | **Least CVEs**, security-first |
+| **Red Hat** | registry.access.redhat.com | 30 MB | 10-20 | Enterprise, RHEL shops |
+| **Ubuntu** | MCR/Canonical | Varies | 5-10 | Ubuntu ecosystem, .NET |
+
+**Recommendation:** Start with **Google distroless** (most documentation). For maximum security, use **Chainguard**.
+
+---
+
+## Debugging Distroless Containers
+
+**Challenge:** Distroless images have **no shell**, making debugging difficult.
+
+### **Solution 1: Use :debug Tag (Development Only)**
+
+Most distroless images have a `:debug` variant with busybox shell:
+
+```bash
+# Regular (no shell)
+docker run gcr.io/distroless/nodejs20-debian12
+
+# Debug variant (has shell)
+docker run -it gcr.io/distroless/nodejs20-debian12:debug sh
+```
+
+**⚠️ NEVER use :debug in production!**
+
+---
+
+### **Solution 2: Use cdebug Tool**
+
+**cdebug** allows debugging without modifying the production image:
+
+```bash
+# Install cdebug
+brew install cdebug  # macOS
+
+# Debug running container
+cdebug exec -it mycontainer sh
+```
+
+**Benefits:**
+- Production image stays minimal
+- Attach debugging tools temporarily
+- No image changes required
+
+---
+
+### **Solution 3: Debug in Builder Stage**
+
+Debug during multi-stage build before copying to distroless:
+
+```dockerfile
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY . .
+
+# Debug here (has shell)
+RUN ls -la
+RUN node --version
+
+FROM gcr.io/distroless/nodejs20-debian12
+COPY --from=builder /app /app
+# ...
+```
+
+---
+
+## Important Notes (2025)
+
+### **Google Container Registry (GCR) Migration**
+
+**Update:** Google Container Registry (gcr.io) was deprecated March 18, 2025.
+
+**✅ Good News:** Distroless images still work!
+- Backend migrated to Artifact Registry
+- **Domain unchanged:** Continue using `gcr.io/distroless/*`
+- No changes needed in your Dockerfiles
+
+---
+
 ## Additional Resources
 
-- [Google Distroless GitHub](https://github.com/GoogleContainerTools/distroless)
-- [Distroless Best Practices](https://github.com/GoogleContainerTools/distroless#best-practices)
-- [Docker Multi-Stage Builds](https://docs.docker.com/build/building/multi-stage/)
-- [Is Your Container Image Really Distroless?](https://www.docker.com/blog/is-your-container-image-really-distroless/)
+### **Comprehensive Guides:**
+- **[Distroless Images Complete Guide](../../Resources/Distroless-Images-Guide.md)** - Full guide covering all providers ⭐
+- [Google Distroless GitHub](https://github.com/GoogleContainerTools/distroless) - Official repo
+- [Chainguard Images](https://edu.chainguard.dev/chainguard/chainguard-images/) - Alternative provider
+- [Chiseled Ubuntu](https://ubuntu.com/containers/chiseled) - Canonical's distroless
+
+### **Tutorials:**
+- [What's Inside Distroless?](https://labs.iximiuz.com/tutorials/gcr-distroless-container-images) - Interactive exploration
+- [Distroless Docker Images Guide](https://bell-sw.com/blog/distroless-containers-for-security-and-size/) - Security & optimization
+- [Building Custom Distroless Images](https://www.innoq.com/en/blog/2023/02/how-to-use-and-build-your-own-distroless-images/) - Advanced
+
+### **Comparisons:**
+- [Alpine vs Distroless vs Scratch](https://medium.com/google-cloud/alpine-distroless-or-scratch-caac35250e0b) - Google Cloud engineer's experience
+- [Is Your Container Really Distroless?](https://www.docker.com/blog/is-your-container-image-really-distroless/) - Docker blog
+
+### **Debugging:**
+- [Debugging Distroless Images](https://edu.chainguard.dev/chainguard/chainguard-images/debugging-distroless-images/) - Chainguard guide
+
+### **Official Docs:**
+- [Docker Multi-Stage Builds](https://docs.docker.com/build/building/multi-stage/) - Docker docs
+- [Docker Distroless Reference](https://docs.docker.com/dhi/core-concepts/distroless/) - Official Docker guide
 
 ---
 

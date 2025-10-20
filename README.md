@@ -117,7 +117,7 @@ By the end of this course, you will be able to:
 1. **Exercise 1:** [Install a Specific Node.js Version on Alpine](./Session%204/Session4_Exercise1.md)
 2. **Exercise 2:** [Multi-Stage Builds with Consistent Base and Custom Image](./Session%204/Session4_Exercise2.md)
 3. **Exercise 3:** [Comparing Python Images with and Without Multi-Stage Builds](./Session%204/Session4_Exercise3.md)
-4. **Exercise 4:** [Using ENTRYPOINT Command](./Session%203/Session4_Exercise4.md)
+4. **Exercise 4:** [Using ENTRYPOINT Command](./Session%203/Session3_Exercise4.md)
 5. **Exercise 5:** [Optimize your Dockerfile to reduce image size](./Session%204/Session4_Exercise5.md)
 6. **Exercise 6 (NEW):** [Vulnerability Scanning with Docker Scout](./Session%204/Session4_Exercise6.md) 🔒
 7. **Exercise 7 (NEW):** [Implementing Distroless Images for Maximum Security](./Session%204/Session4_Exercise7.md) 🔒
@@ -301,6 +301,14 @@ Comprehensive guides and templates to help you master Docker:
    - Framework-specific templates (React, Vue, Django)
    - Security-focused template
 
+6. **[Distroless Images Complete Guide](./Resources/Distroless-Images-Guide.md)** 🔐
+   - All distroless providers (Google, Chainguard, Red Hat, Canonical)
+   - Size and security comparisons
+   - When to use what (decision trees)
+   - Practical examples for all languages
+   - Debugging distroless containers
+   - Migration guide from Alpine
+
 **These resources are designed to be printed and kept handy while working with Docker!**
 
 ---
@@ -420,6 +428,7 @@ After completing this course, you'll be ready to:
 - **[Docker Compose Syntax Guide](./Resources/Docker-Compose-Syntax-Guide.md)** - Complete compose reference
 - **[Troubleshooting Guide](./Resources/Docker-Troubleshooting-Guide.md)** - Fix common issues quickly
 - **[.dockerignore Templates](./Resources/dockerignore-template.md)** - For all project types
+- **[Distroless Images Guide](./Resources/Distroless-Images-Guide.md)** - All distroless providers & best practices
 - **[Course Improvement Plan](./Docker-material-improvement-plan.md)** - 2025 updates explained
 
 ### **External Resources:**
