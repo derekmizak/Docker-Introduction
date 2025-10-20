@@ -23,7 +23,6 @@ By the end of this course, you will be able to:
 - Make sure to complete all exercises to reinforce your learning
 
 ### **📖 Additional Resources:**
-- [Docker Material Improvement Plan](./Docker-material-improvement-plan.md) - Comprehensive guide to 2025 updates
 - Official Docker Documentation: https://docs.docker.com/
 
 ---
