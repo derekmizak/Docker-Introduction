@@ -62,27 +62,34 @@
    docker volume inspect my-named-volume
    ```
    - Look for the `"Mountpoint"` field in the output, which shows where the volume is stored.
-   - **Note:** On Linux, this path (e.g., `/var/lib/docker/volumes/my-named-volume/_data`) is directly accessible from the host. However, on **macOS/Windows with Docker Desktop**, this path is inside the Docker VM and **not directly accessible** from your host terminal.
 
-4. Verify the volume data using a temporary container (works on all platforms):
+   **Platform-Specific Notes:**
+   - **Linux:** The mountpoint path (e.g., `/var/lib/docker/volumes/my-named-volume/_data`) is directly accessible from the host terminal.
+   - **macOS with Docker Desktop:** The path is inside the Docker VM (Linux VM) and **NOT accessible** from macOS Terminal.
+   - **Windows with Docker Desktop:** The path is inside the Docker VM (WSL2 or Hyper-V) and **NOT accessible** from PowerShell/CMD. Even if you're using WSL2, the path shown is inside Docker's internal VM.
+
+4. Verify the volume data using a temporary container (**Recommended - works on ALL platforms**):
    ```bash
    docker run --rm -v my-named-volume:/data alpine ls -la /data
    ```
    - This command mounts the volume to a temporary Alpine container and lists its contents.
    - The `--rm` flag automatically removes the container after it exits.
+   - **Works identically on:** Windows (PowerShell/CMD/Git Bash), macOS (Terminal), Linux (any shell)
 
 5. View the content of the file using a temporary container:
    ```bash
    docker run --rm -v my-named-volume:/data alpine cat /data/file.txt
    ```
    - You should see: `Hello from Container A`
+   - **Windows users:** This command works in PowerShell, CMD, and Git Bash exactly as shown
 
-**Alternative (Linux only):** If you're on a native Linux Docker installation, you can access the volume directly:
+**Alternative (Linux only):** If you're on a native Linux Docker installation (not Docker Desktop), you can access the volume directly:
    ```bash
-   # Linux only - view files directly
+   # Linux only - direct filesystem access
    sudo ls -la /var/lib/docker/volumes/my-named-volume/_data
    sudo cat /var/lib/docker/volumes/my-named-volume/_data/file.txt
    ```
+   - **Note:** This does NOT work on Windows or macOS, even with Docker Desktop running Linux containers
 
 ---
 
