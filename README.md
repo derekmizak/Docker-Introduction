@@ -3,7 +3,7 @@
 This repository includes course material for the **Docker Introduction** course. The course is designed for beginners and follows **2025 industry best practices** including security, optimization, and production deployment.
 
 ### **📋 Course Information:**
-- **Duration:** 16+ hours (6+ hours lectures + 10+ hours hands-on exercises)
+- **Duration:** 20+ hours (6+ hours lectures + 14+ hours hands-on exercises, includes capstone project)
 - **Level:** Beginner to Intermediate
 - **Updated:** October 2025
 - **Includes:** Security scanning, distroless images, BuildKit optimization, Docker Compose v2, comprehensive quick references
@@ -167,13 +167,52 @@ By the end of this course, you will be able to:
 
 ### **Exercises:**
 
-Exercise 1: [Create a custom bridge network.](./Session6/Session6_Exercise1.md)
+**Basic Networking:**
 
-Exercise 2: [Connect multiple containers on the same network.](./Session6/Session6_Exercise2.md)
+Exercise 1: [Create a custom bridge network.](./Session%206/Session6_Exercise1.md)
 
-Exercise 3: [Map host ports to container ports and test connectivity.](./Session6/Session6_Exercise3.md)
+Exercise 2: [Connect multiple containers on the same network.](./Session%206/Session6_Exercise2.md)
 
-Exercise 4: [Testing inter container communication across the networks](./Session6/Session6_Exercise4.md)
+Exercise 3: [Map host ports to container ports and test connectivity.](./Session%206/Session6_Exercise3.md)
+
+Exercise 4: [Testing inter container communication across the networks](./Session%206/Session6_Exercise4.md)
+
+**🎓 CAPSTONE PROJECT (NEW):** Comprehensive integration of Sessions 1-6
+
+Exercise 6a: [Introduction & Architecture](./Session%206%20-%20Project/Session6_Exercise6a.md) 📋
+- Complete project overview and skills mapping
+- Platform compatibility guide
+- Learning objectives and success criteria
+
+Exercise 6b: [Database Setup & Data Persistence](./Session%206%20-%20Project/Session6_Exercise6b.md) 🗄️
+- PostgreSQL container with custom network
+- Named volumes for persistence
+- Data persistence verification
+
+Exercise 6c: [Building the Application Image](./Session%206%20-%20Project/Session6_Exercise6c.md) 🏗️
+- Multi-stage Dockerfile for Node.js API
+- BuildKit cache mounts
+- Security best practices and vulnerability scanning
+
+Exercise 6d: [Running & Integrating Services](./Session%206%20-%20Project/Session6_Exercise6d.md) 🔗
+- Full application deployment
+- Resource limits and monitoring
+- DNS-based service discovery
+- Platform-specific testing
+
+Exercise 6e: [Production Deployment & Operations](./Session%206%20-%20Project/Session6_Exercise6e.md) 🚀
+- tmpfs mounts for temporary data
+- Automated backup/restore procedures
+- Disaster recovery testing
+- Security verification and operational runbook
+
+**Capstone Outcomes:**
+- ✅ Build production-ready containerized application (Task Manager API)
+- ✅ Integrate ALL skills from Sessions 1-6
+- ✅ Implement security, optimization, and operational best practices
+- ✅ Create portfolio-ready project
+
+**Time Commitment:** 4-6 hours (can be split across multiple sessions)
 
 ---
 
@@ -356,16 +395,16 @@ This course has been updated with modern Docker practices:
 | Session 3 | Security best practices | 0 |
 | Session 4 | **Major update** | **+3 exercises** (Scout, Distroless, BuildKit) |
 | Session 5 | Enhanced volume management | **+2 exercises** (tmpfs, backup/restore) |
-| Session 6 | DNS and networking details | 0 |
+| Session 6 | **Major update** - Capstone Project | **+5 exercises** (Comprehensive Sessions 1-6 integration) |
 | Session 7 | **Major update** - Healthchecks, compose v2 | Updated all exercises |
 | **Session 8 (NEW)** | **Complete security session** | **+4 exercises** (Comprehensive security) |
 | **Resources (NEW)** | **Quick reference guides & templates** | **5 comprehensive guides** |
 
 ### **📈 Learning Hours:**
 - **Lectures:** 6+ hours
-- **Hands-on Exercises:** 10+ hours
+- **Hands-on Exercises:** 14+ hours (includes 4-6 hour capstone project)
 - **Quick References:** Self-paced (always accessible)
-- **Total:** 16+ hours of comprehensive Docker education
+- **Total:** 20+ hours of comprehensive Docker education
 
 ---
 
@@ -470,6 +509,7 @@ Track your progress through the course:
 - [ ] Session 4: Optimization and security (including 3 new exercises)
 - [ ] Session 5: Data management with volumes
 - [ ] Session 6: Networking and ports
+- [ ] **Session 6 Capstone:** Production-ready Task Manager application (NEW)
 - [ ] Session 7: Docker Compose multi-container apps
 - [ ] Session 8: Security & best practices (NEW)
 - [ ] Final Project: Deploy production-ready multi-tier application
