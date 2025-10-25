@@ -57,21 +57,31 @@
    docker ps -a
    ```
 
-3. Inspect the volume data directly on the Docker-managed file system:
-   - First, locate the volume's mount path:
-     ```bash
-     docker volume inspect my-named-volume
-     ```
-   - Look for the `"Mountpoint"` field in the output, which shows where the volume is stored on the host (e.g., `/var/lib/docker/volumes/my-named-volume/_data`).
-
-4. Navigate to the volume's mount point on the host and list its contents:
+3. Inspect the volume to understand where Docker stores the data:
    ```bash
-   ls /var/lib/docker/volumes/my-named-volume/_data
+   docker volume inspect my-named-volume
    ```
+   - Look for the `"Mountpoint"` field in the output, which shows where the volume is stored.
+   - **Note:** On Linux, this path (e.g., `/var/lib/docker/volumes/my-named-volume/_data`) is directly accessible from the host. However, on **macOS/Windows with Docker Desktop**, this path is inside the Docker VM and **not directly accessible** from your host terminal.
 
-5. View the content of the file:
+4. Verify the volume data using a temporary container (works on all platforms):
    ```bash
-   cat /var/lib/docker/volumes/my-named-volume/_data/file.txt
+   docker run --rm -v my-named-volume:/data alpine ls -la /data
+   ```
+   - This command mounts the volume to a temporary Alpine container and lists its contents.
+   - The `--rm` flag automatically removes the container after it exits.
+
+5. View the content of the file using a temporary container:
+   ```bash
+   docker run --rm -v my-named-volume:/data alpine cat /data/file.txt
+   ```
+   - You should see: `Hello from Container A`
+
+**Alternative (Linux only):** If you're on a native Linux Docker installation, you can access the volume directly:
+   ```bash
+   # Linux only - view files directly
+   sudo ls -la /var/lib/docker/volumes/my-named-volume/_data
+   sudo cat /var/lib/docker/volumes/my-named-volume/_data/file.txt
    ```
 
 ---
