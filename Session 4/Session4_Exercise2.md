@@ -52,8 +52,8 @@
    FROM alpine:slim AS build-stage
 
    # Install dependencies
-   RUN apk add --no-cache curl bash libc6-compat && \
-       curl -fsSL https://nodejs.org/dist/v22.11.0/node-v22.11.0-linux-x64.tar.xz | tar -xJ -C /usr/local --strip-components=1
+
+   RUN apk add --no-cache curl bash nodejs npm libc6-compat
 
    # Set the working directory
    WORKDIR /app
